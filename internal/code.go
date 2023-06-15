@@ -1,7 +1,7 @@
 package internal
 
 import (
-	"github.com/boombuler/barcode/code128"
+	"github.com/boombuler/barcode/ean"
 	"github.com/boombuler/barcode/qr"
 	"github.com/johnfercher/maroto/internal/fpdf"
 	"github.com/johnfercher/maroto/pkg/props"
@@ -57,7 +57,8 @@ func (s *code) AddQr(code string, cell Cell, prop props.Rect) {
 
 // AddBar create a Barcode inside a cell.
 func (s *code) AddBar(code string, cell Cell, prop props.Barcode) (err error) {
-	bcode, err := code128.Encode(code)
+	//bcode, err := code128.Encode(code)
+	bcode, err := ean.Encode(code)
 	if err != nil {
 		return
 	}
