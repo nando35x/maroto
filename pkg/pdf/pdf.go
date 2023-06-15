@@ -52,6 +52,7 @@ type Maroto interface {
 	SetBorder(on bool)
 	SetBackgroundColor(color color.Color)
 	SetAliasNbPages(alias string)
+	SetAutoPageBreak(auto bool, margin float64)
 	SetFirstPageNb(number int)
 	GetBorder() bool
 	GetPageSize() (width float64, height float64)
@@ -297,6 +298,14 @@ func (s *PdfMaroto) SetFirstPageNb(number int) {
 // It will be substituted as the document is closed.
 func (s *PdfMaroto) SetAliasNbPages(alias string) {
 	s.Pdf.AliasNbPages(alias)
+}
+
+// SetAutoPageBreak enables or disables the automatic page breaking mode. When
+// enabling, the second parameter is the distance from the bottom of the page
+// that defines the triggering limit. By default, the mode is on and the margin
+// is 2 cm.
+func (s *PdfMaroto) SetAutoPageBreak(auto bool, margin float64) {
+	s.Pdf.SetAutoPageBreak(auto, margin)
 }
 
 // SetCompression allows to set/unset compression for a page
