@@ -37,17 +37,27 @@ type TableList interface {
 }
 
 type tableList struct {
-	pdf  MarotoGridPart
-	text Text
-	font Font
+	pdf        MarotoGridPart
+	text       Text
+	font       Font
+	maxGridSum float64
 }
 
 // NewTableList create a TableList.
-func NewTableList(text Text, font Font) *tableList {
-	return &tableList{
-		text: text,
-		font: font,
+func NewTableList(text Text, font Font, gridSize float64) *tableList {
+	if gridSize == 0 {
+		gridSize = consts.DefaultMaxGridSum
 	}
+	return &tableList{
+		text:       text,
+		font:       font,
+		maxGridSum: gridSize,
+	}
+}
+
+// SetMaxGridSum changes the max grid size of the page
+func (s *tableList) SetMaxGridSum(maxGridSum float64) {
+	s.maxGridSum = maxGridSum
 }
 
 // BindGrid bind the grid system to TableList.
@@ -128,6 +138,10 @@ func (s *tableList) Create(header []string, contents [][]string, defaultFontFami
 		if tableProp.Line {
 			s.pdf.Line(lineHeight, tableProp.LineProp)
 		}
+
+		if tableProp.MaxGridSum > 0 {
+			s.SetMaxGridSum(tableProp.MaxGridSum)
+		}
 	}
 }
 
@@ -142,7 +156,7 @@ func (s *tableList) calcLinesHeight(textList []string, contentProp props.TableLi
 
 	for i, text := range textList {
 		gridSize := float64(contentProp.GridSizes[i])
-		percentSize := gridSize / consts.MaxGridSum
+		percentSize := gridSize / s.maxGridSum
 		colWidth := usefulWidth * percentSize
 		qtdLines := float64(s.text.GetLinesQuantity(text, textProp, colWidth))
 		if qtdLines > maxLines {

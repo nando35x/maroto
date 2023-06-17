@@ -15,7 +15,7 @@ import (
 
 func TestNewTableList(t *testing.T) {
 	// Act
-	tableList := internal.NewTableList(nil, nil)
+	tableList := internal.NewTableList(nil, nil, consts.DefaultMaxGridSum)
 
 	// Assert
 	assert.NotNil(t, tableList)
@@ -26,7 +26,7 @@ func TestTableList_Create_WhenHeaderIsNil(t *testing.T) {
 	// Arrange
 	text := &mocks.Text{}
 	text.On("GetLinesQuantity", mock.Anything, mock.Anything, mock.Anything).Return(1)
-	sut := internal.NewTableList(text, nil)
+	sut := internal.NewTableList(text, nil, consts.DefaultMaxGridSum)
 
 	_, contents := getContents()
 
@@ -41,7 +41,7 @@ func TestTableList_Create_WhenHeaderIsEmpty(t *testing.T) {
 	// Arrange
 	text := &mocks.Text{}
 	text.On("GetLinesQuantity", mock.Anything, mock.Anything, mock.Anything).Return(1)
-	sut := internal.NewTableList(text, nil)
+	sut := internal.NewTableList(text, nil, consts.DefaultMaxGridSum)
 
 	_, contents := getContents()
 
@@ -56,7 +56,7 @@ func TestTableList_Create_WhenContentIsNil(t *testing.T) {
 	// Arrange
 	text := &mocks.Text{}
 	text.On("GetLinesQuantity", mock.Anything, mock.Anything, mock.Anything).Return(1)
-	sut := internal.NewTableList(text, nil)
+	sut := internal.NewTableList(text, nil, consts.DefaultMaxGridSum)
 
 	headers, _ := getContents()
 
@@ -71,7 +71,7 @@ func TestTableList_Create_WhenContentIsEmpty(t *testing.T) {
 	// Arrange
 	text := &mocks.Text{}
 	text.On("GetLinesQuantity", mock.Anything, mock.Anything, mock.Anything).Return(1)
-	sut := internal.NewTableList(text, nil)
+	sut := internal.NewTableList(text, nil, consts.DefaultMaxGridSum)
 
 	headers, _ := getContents()
 
@@ -98,7 +98,7 @@ func TestTableList_Create_Happy(t *testing.T) {
 	marotoGrid.On("GetPageMargins").Return(10.0, 10.0, 10.0, 10.0)
 	marotoGrid.On("GetPageSize").Return(200.0, 600.0)
 
-	sut := internal.NewTableList(text, font)
+	sut := internal.NewTableList(text, font, consts.DefaultMaxGridSum)
 	sut.BindGrid(marotoGrid)
 
 	headers, contents := getContents()
@@ -142,7 +142,7 @@ func TestTableList_Create_HappyWithBackgroundColor(t *testing.T) {
 	marotoGrid.On("GetPageMargins").Return(10.0, 10.0, 10.0, 10.0)
 	marotoGrid.On("GetPageSize").Return(200.0, 600.0)
 
-	sut := internal.NewTableList(text, font)
+	sut := internal.NewTableList(text, font, consts.DefaultMaxGridSum)
 	sut.BindGrid(marotoGrid)
 
 	headers, contents := getContents()
@@ -188,7 +188,7 @@ func TestTableList_Create_Happy_Without_Line(t *testing.T) {
 	marotoGrid.On("GetPageMargins").Return(10.0, 10.0, 10.0, 10.0)
 	marotoGrid.On("GetPageSize").Return(200.0, 600.0)
 
-	sut := internal.NewTableList(text, font)
+	sut := internal.NewTableList(text, font, consts.DefaultMaxGridSum)
 	sut.BindGrid(marotoGrid)
 
 	headers, contents := getContents()
@@ -223,7 +223,7 @@ func TestTableList_Create_HappyWithVerticalContentPadding(t *testing.T) {
 	marotoGrid.On("GetPageMargins").Return(10.0, 10.0, 10.0, 10.0)
 	marotoGrid.On("GetPageSize").Return(200.0, 600.0)
 
-	sut := internal.NewTableList(text, font)
+	sut := internal.NewTableList(text, font, consts.DefaultMaxGridSum)
 	sut.BindGrid(marotoGrid)
 
 	headers, contents := getContents()
@@ -249,7 +249,7 @@ func TestTableList_Create_WhenContentIsEmptyWithLine(t *testing.T) {
 	// Arrange
 	text := &mocks.Text{}
 	text.On("GetLinesQuantity", mock.Anything, mock.Anything, mock.Anything).Return(1)
-	sut := internal.NewTableList(text, nil)
+	sut := internal.NewTableList(text, nil, consts.DefaultMaxGridSum)
 
 	marotoGrid := mocks.Maroto{}
 	marotoGrid.On("Line", mock.Anything).Return(nil)
@@ -282,7 +282,7 @@ func TestTableList_Create_WithLineProp(t *testing.T) {
 	marotoGrid.On("GetPageMargins").Return(10.0, 10.0, 10.0, 10.0)
 	marotoGrid.On("GetPageSize").Return(200.0, 600.0)
 
-	sut := internal.NewTableList(text, font)
+	sut := internal.NewTableList(text, font, consts.DefaultMaxGridSum)
 	sut.BindGrid(marotoGrid)
 
 	headers, contents := getContents()
