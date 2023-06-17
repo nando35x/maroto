@@ -13,9 +13,9 @@ import (
 )
 
 const (
-	defaultTopMargin   = 10
-	defaultLeftMargin  = 10
-	defaultRightMargin = 10
+	defaultTopMargin   = 0
+	defaultLeftMargin  = 0
+	defaultRightMargin = 0
 	defaultFontSize    = 16
 )
 
@@ -185,8 +185,8 @@ func (s *PdfMaroto) AddPage() {
 	_, pageHeight := s.Pdf.GetPageSize()
 	_, top, _, bottom := s.Pdf.GetMargins()
 
-	totalOffsetY := int(s.offsetY + s.footerHeight)
-	maxOffsetPage := int(pageHeight - bottom - top)
+	totalOffsetY := s.offsetY + s.footerHeight
+	maxOffsetPage := pageHeight - bottom - top
 
 	s.Row(float64(maxOffsetPage-totalOffsetY), func() {
 		s.ColSpace(uint(s.maxGridSum))
