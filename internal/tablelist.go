@@ -96,8 +96,7 @@ func (s *tableList) Create(header []string, contents [][]string, defaultFontFami
 			}
 
 			s.pdf.Col(tableProp.HeaderProp.GridSizes[i], func() {
-				reason := hs
-				s.pdf.Text(reason, tableProp.HeaderProp.ToTextProp(alignment, 0, false, 0.0))
+				s.pdf.Text(hs, tableProp.HeaderProp.ToTextProp(alignment, 0, false, 0.0))
 			})
 		}
 	})
