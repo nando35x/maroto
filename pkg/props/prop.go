@@ -28,6 +28,9 @@ type Barcode struct {
 	Proportion Proportion
 	// Center define that the barcode will be vertically and horizontally centralized.
 	Center bool
+	//Encoding for barcode default "code128"
+	//ex "ean", "code39"
+	Encoding string
 }
 
 // Rect represents properties from a rectangle (Image, QrCode or Barcode) inside a cell.
@@ -169,6 +172,8 @@ func (s *Barcode) MakeValid() {
 	maxPercentage := 100.0
 	minValue := 0.0
 
+	s.Encoding = "code128"
+
 	if s.Percent <= minPercentage || s.Percent > maxPercentage {
 		s.Percent = maxPercentage
 	}
@@ -260,7 +265,12 @@ func (s *Font) MakeValid(defaultFamily string) {
 }
 
 // ToTextProp from Font return a Text based on Font.
-func (s *Font) ToTextProp(align consts.Align, top float64, extrapolate bool, verticalPadding float64) Text {
+func (s *Font) ToTextProp(
+	align consts.Align,
+	top float64,
+	extrapolate bool,
+	verticalPadding float64,
+) Text {
 	textProp := Text{
 		Family:          s.Family,
 		Style:           s.Style,
@@ -278,7 +288,12 @@ func (s *Font) ToTextProp(align consts.Align, top float64, extrapolate bool, ver
 }
 
 // ToTextProp from Font return a TableListContent based on Font.
-func (s *TableListContent) ToTextProp(align consts.Align, top float64, extrapolate bool, verticalPadding float64) Text {
+func (s *TableListContent) ToTextProp(
+	align consts.Align,
+	top float64,
+	extrapolate bool,
+	verticalPadding float64,
+) Text {
 	textProp := Text{
 		Family:          s.Family,
 		Style:           s.Style,
