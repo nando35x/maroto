@@ -82,7 +82,8 @@ func (s *code) AddBar(code string, cell Cell, prop props.Barcode) (err error) {
 	case "ean":
 		bcode, err = ean.Encode(code)
 	case "code39":
-		bcode, err = code39.Encode(code, false, true)
+		bcode, err = code39.Encode(code, true, true)
+	case "code128":
 	}
 	if err != nil {
 		return

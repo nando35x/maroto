@@ -172,8 +172,6 @@ func (s *Barcode) MakeValid() {
 	maxPercentage := 100.0
 	minValue := 0.0
 
-	s.Encoding = "code128"
-
 	if s.Percent <= minPercentage || s.Percent > maxPercentage {
 		s.Percent = maxPercentage
 	}
